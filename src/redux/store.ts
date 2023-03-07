@@ -1,6 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import CalculatorReduce from "shared/calculator/redux/calculator.slice";
 export const store = configureStore({
-	reducer: {},
+	reducer: {
+		calculator: CalculatorReduce,
+	},
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

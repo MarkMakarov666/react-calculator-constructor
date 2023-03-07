@@ -7,13 +7,23 @@ import {
 
 export interface DisplayWidgetProps {
 	value: number;
+	numbersAfterDot: number;
+	isInteger: boolean;
 }
 
-export const DisplayWidget = ({ value }: DisplayWidgetProps) => {
+export const DisplayWidget = ({
+	value,
+	numbersAfterDot,
+	isInteger,
+}: DisplayWidgetProps) => {
 	return (
 		<Widget>
 			<DisplayWrapper>
-				<Result>{value}</Result>
+				<Result>
+					{isInteger
+						? value
+						: value.toFixed(numbersAfterDot - 1).replace(".", ",")}
+				</Result>
 			</DisplayWrapper>
 		</Widget>
 	);

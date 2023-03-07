@@ -11,4 +11,7 @@ export const ButtonWrapper = styled.button`
 	font-weight: 500;
 	font-size: 1.4rem;
 	line-height: 1.5rem;
+	&:hover {
+		border: 1px solid ${Colors.secondaryColor};
+	}
 `;
