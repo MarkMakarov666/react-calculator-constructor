@@ -11,6 +11,7 @@ module.exports = {
 		"prettier",
 		"plugin:import/errors",
 		"plugin:import/warnings",
+		"plugin:import/typescript",
 	],
 	overrides: [],
 	parser: "@typescript-eslint/parser",
@@ -18,7 +19,7 @@ module.exports = {
 		ecmaVersion: "latest",
 		sourceType: "module",
 	},
-	plugins: ["react", "@typescript-eslint"],
+	plugins: ["react", "@typescript-eslint", "import"],
 	rules: {
 		indent: "off",
 		"linebreak-style": ["error", "unix"],
@@ -48,7 +49,6 @@ module.exports = {
 		"import/resolver": {
 			typescript: {
 				alwaysTryTypes: true,
-				project: "./tsconfig.json",
 			},
 			node: {
 				paths: ["src"],
