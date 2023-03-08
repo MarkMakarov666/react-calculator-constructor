@@ -24,11 +24,12 @@ export const DisplayWidget = ({
 	const result = isInteger
 		? value
 		: value.toFixed(numbersAfterDot - 1).replace(".", ",");
-	const isSafeNum = !Number.isNaN(value);
+	const isNotNumber = Number.isNaN(value) || !Number.isFinite(value);
+
 	const notNumberMessage = "Не определено";
-	const valueLength = isSafeNum
-		? value.toString().length
-		: notNumberMessage.length;
+	const valueLength = isNotNumber
+		? notNumberMessage.length
+		: value.toString().length;
 	return (
 		<Widget
 			type={ItemTypes.display}
@@ -37,7 +38,7 @@ export const DisplayWidget = ({
 		>
 			<DisplayWrapper>
 				<Result length={valueLength}>
-					{isSafeNum ? result : notNumberMessage}
+					{!isNotNumber ? result : notNumberMessage}
 				</Result>
 			</DisplayWrapper>
 		</Widget>
