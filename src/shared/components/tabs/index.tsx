@@ -15,11 +15,11 @@ export const Tabs = ({ onClick }: TabsProps) => {
 	};
 	return (
 		<TabsWrapper>
-			<Tab onClick={handleOnClick} isActive={isActive}>
+			<Tab onClick={!isActive ? handleOnClick : undefined} isActive={isActive}>
 				<Icon name={IconName.eye} />
 				Runtime
 			</Tab>
-			<Tab onClick={handleOnClick} isActive={!isActive}>
+			<Tab onClick={isActive ? handleOnClick : undefined} isActive={!isActive}>
 				<Icon name={IconName.selector} />
 				Constructor
 			</Tab>

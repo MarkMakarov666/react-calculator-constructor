@@ -19,6 +19,7 @@ export const Tab = styled.div<{ isActive?: boolean }>`
 	font-size: 1.4rem;
 	line-height: 1.5rem;
 	user-select: none;
+	cursor: pointer;
 	color: ${Colors.tabBaseColor};
 	${(props) =>
 		props.isActive
