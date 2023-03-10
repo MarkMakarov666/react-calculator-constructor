@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ButtonWrapper } from "shared/components/button/styled";
 
 interface IButtonProps {
@@ -7,5 +7,23 @@ interface IButtonProps {
 }
 
 export const Button = ({ children, onClick }: IButtonProps) => {
-	return <ButtonWrapper onClick={onClick}>{children}</ButtonWrapper>;
+	const [isActive, setIsActive] = useState(false);
+	const onHandleOnMouse = () => {
+		setIsActive(!isActive);
+	};
+	const onHandleOnLeave = () => {
+		setIsActive(false);
+	};
+
+	return (
+		<ButtonWrapper
+			onClick={onClick}
+			onMouseDown={onHandleOnMouse}
+			onMouseUp={onHandleOnMouse}
+			onMouseLeave={onHandleOnLeave}
+			isActive={isActive}
+		>
+			{children}
+		</ButtonWrapper>
+	);
 };

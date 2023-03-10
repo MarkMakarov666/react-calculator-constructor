@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import CalculatorReduce from "shared/calculator/redux/calculator.slice";
+import CalculatorReducer from "shared/calculator/redux/calculator.slice";
+import ConstructorReducer from "shared/constructor/redux/constructor.slice";
 export const store = configureStore({
 	reducer: {
-		calculator: CalculatorReduce,
+		dragAndDrop: ConstructorReducer,
+		calculator: CalculatorReducer,
 	},
 });
 

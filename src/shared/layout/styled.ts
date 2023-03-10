@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(2, 240px);
+	gap: 60px 60px;
 `;

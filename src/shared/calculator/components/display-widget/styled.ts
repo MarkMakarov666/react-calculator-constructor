@@ -11,10 +11,13 @@ export const DisplayWrapper = styled.div`
 	border-radius: 6px;
 `;
 
-export const Result = styled.span`
+export const Result = styled.span<{ length: number }>`
 	display: block;
 	padding: 0 4px;
 	font-weight: 800;
 	font-size: 3.6rem;
 	line-height: 4.4rem;
+	overflow: hidden;
+	${(props) => (props.length > 9 ? "font-size: 2.5rem;" : "")}
+	${(props) => (props.length > 13 ? "font-size: 1.9rem;" : "")}
 `;

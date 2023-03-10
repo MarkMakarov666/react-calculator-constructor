@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import { App } from "App";
 import { store } from "redux/store";
 import GlobalStyles from "global";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const rootNode = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
@@ -11,7 +13,9 @@ const rootNode = ReactDOM.createRoot(
 
 rootNode.render(
 	<Provider store={store}>
-		<GlobalStyles />
-		<App />
+		<DndProvider backend={HTML5Backend}>
+			<GlobalStyles />
+			<App />
+		</DndProvider>
 	</Provider>
 );

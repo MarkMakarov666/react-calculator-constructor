@@ -8,7 +8,7 @@ export enum Operations {
 	divide = "divide",
 }
 
-export interface CalculatorSlice {
+export interface ICalculatorSlice {
 	value1: number;
 	value2: number;
 	isIntegerValue1: boolean;
@@ -18,11 +18,10 @@ export interface CalculatorSlice {
 	operation: Operations;
 	isOperationPressed: boolean;
 	isKeypadPressed: boolean;
-	valueWasNull: boolean;
 	isHaveResult: boolean;
 }
 
-const initialState: CalculatorSlice = {
+const initialState: ICalculatorSlice = {
 	value1: 0,
 	value2: 0,
 	isIntegerValue1: true,
@@ -32,7 +31,6 @@ const initialState: CalculatorSlice = {
 	operation: Operations.add,
 	isOperationPressed: false,
 	isKeypadPressed: false,
-	valueWasNull: false,
 	isHaveResult: false,
 };
 
@@ -66,6 +64,7 @@ export const calculatorSlice = createSlice({
 				state.isIntegerValue2 = true;
 				state.isHaveResult = false;
 			}
+
 			state.value2 = addNumber(
 				state.value2,
 				action.payload,
@@ -97,6 +96,18 @@ export const calculatorSlice = createSlice({
 			state.isKeypadPressed = false;
 			state.isHaveResult = true;
 		},
+		setDefault: (state) => {
+			state.value1 = 0;
+			state.value2 = 0;
+			state.isIntegerValue1 = true;
+			state.isIntegerValue2 = true;
+			state.numbersAfterDotValue1 = 1;
+			state.numbersAfterDotValue2 = 1;
+			state.operation = Operations.add;
+			state.isOperationPressed = false;
+			state.isKeypadPressed = false;
+			state.isHaveResult = false;
+		},
 	},
 });
 
@@ -109,5 +120,6 @@ export const {
 	addValue1,
 	addDotValue1,
 	findResult,
+	setDefault,
 } = calculatorSlice.actions;
 export default calculatorSlice.reducer;

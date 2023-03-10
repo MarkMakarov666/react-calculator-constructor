@@ -5,8 +5,17 @@ import { ResultWrapper } from "shared/calculator/components/result-widget/styled
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { count } from "shared/calculator/helpers/count";
 import { findResult } from "shared/calculator/redux/calculator.slice";
+import { ItemTypes } from "constants/drop";
 
-export const ResultWidget = () => {
+export interface ResultWidgetProps {
+	onDoubleClick?: (value: ItemTypes) => void;
+	inContainer?: boolean;
+}
+
+export const ResultWidget = ({
+	onDoubleClick,
+	inContainer,
+}: ResultWidgetProps) => {
 	const { operation, value1, value2 } = useAppSelector(
 		(state) => state.calculator
 	);
@@ -16,7 +25,11 @@ export const ResultWidget = () => {
 	};
 
 	return (
-		<Widget>
+		<Widget
+			type={ItemTypes.result}
+			onDoubleClick={onDoubleClick}
+			isDraggable={!inContainer}
+		>
 			<ResultWrapper>
 				<Button onClick={handleOnClick}>=</Button>
 			</ResultWrapper>

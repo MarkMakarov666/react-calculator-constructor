@@ -14,8 +14,19 @@ import {
 	addValue2,
 	enableKeypadPressed,
 } from "shared/calculator/redux/calculator.slice";
+import { ItemTypes } from "constants/drop";
 
-export const KeypadWidget = () => {
+export interface KeypadWidgetProps {
+	onDoubleClick?: (value: ItemTypes) => void;
+	isEditMode?: boolean;
+	inContainer?: boolean;
+}
+
+export const KeypadWidget = ({
+	onDoubleClick,
+	isEditMode,
+	inContainer,
+}: KeypadWidgetProps) => {
 	const { isKeypadPressed, isOperationPressed } = useAppSelector(
 		(state) => state.calculator
 	);
@@ -41,29 +52,28 @@ export const KeypadWidget = () => {
 			dispatch(addDotValue1());
 		}
 	};
-
+	const numbers = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 	return (
-		<Widget>
+		<Widget
+			type={ItemTypes.keypad}
+			onDoubleClick={onDoubleClick}
+			isDraggable={!inContainer}
+		>
 			<KeypadWrapper>
-				<Button
-					onClick={() => {
-						handleOnClick(7);
-					}}
+				{numbers.map((number) => (
+					<Button
+						key={`keypad--button${number}`}
+						onClick={!isEditMode ? () => handleOnClick(number) : undefined}
+					>
+						{number}
+					</Button>
+				))}
+				<ZeroButtonWrapper
+					onClick={!isEditMode ? () => handleOnClick(0) : undefined}
 				>
-					7
-				</Button>
-				<Button onClick={() => handleOnClick(8)}>8</Button>
-				<Button onClick={() => handleOnClick(9)}>9</Button>
-				<Button onClick={() => handleOnClick(4)}>4</Button>
-				<Button onClick={() => handleOnClick(5)}>5</Button>
-				<Button onClick={() => handleOnClick(6)}>6</Button>
-				<Button onClick={() => handleOnClick(1)}>1</Button>
-				<Button onClick={() => handleOnClick(2)}>2</Button>
-				<Button onClick={() => handleOnClick(3)}>3</Button>
-				<ZeroButtonWrapper onClick={() => handleOnClick(0)}>
 					<Button>0</Button>
 				</ZeroButtonWrapper>
-				<Button onClick={handleOnClickDot}>,</Button>
+				<Button onClick={!isEditMode ? handleOnClickDot : undefined}>,</Button>
 			</KeypadWrapper>
 		</Widget>
 	);
