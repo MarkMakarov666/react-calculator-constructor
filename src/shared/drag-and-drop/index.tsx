@@ -11,13 +11,13 @@ export interface DragAndDropProps {
 	widgetsInCanvas: CalculatorWidgets[];
 	isEditMode?: boolean;
 	children: React.ReactElement;
-	accept: CalculatorWidgets[];
+	acceptTypes: CalculatorWidgets[];
 }
 
 export const DragAndDrop = ({
 	children,
 	isEditMode,
-	accept,
+	acceptTypes,
 	widgetsInCanvas,
 }: DragAndDropProps) => {
 	const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ export const DragAndDrop = ({
 			<Sidebar>{cloneElement(children, { inCanvas: widgetsInCanvas })}</Sidebar>
 			<OuterCanvasWrapper>
 				<Tabs onClick={tabsOnClick} />
-				<Canvas isEditMode={isEditMode} accept={accept}>
+				<Canvas isEditMode={isEditMode} accept={acceptTypes}>
 					{cloneElement(children, { components: widgetsInCanvas })}
 				</Canvas>
 			</OuterCanvasWrapper>
