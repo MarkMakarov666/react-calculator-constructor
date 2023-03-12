@@ -1,29 +1,26 @@
 import React from "react";
 import { Calculator } from "shared/calculator";
-import { Layout } from "shared/layout";
 import { PageWrapper } from "pages/main-page/styled";
-import { Constructor } from "shared/constructor";
-import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { Tabs } from "shared/components/tabs";
-import { toggleEnable } from "shared/constructor/redux/constructor.slice";
+import { useAppSelector } from "redux/hooks";
+import { DragAndDrop } from "shared/drag-and-drop";
+import { CalculatorWidgets } from "constants/calculatorTypes";
 
 export const MainPage = () => {
 	const { components, isEnable } = useAppSelector((state) => state.dragAndDrop);
-	const dispath = useAppDispatch();
-	const tabsOnClick = (value: boolean) => {
-		dispath(toggleEnable(value));
-	};
 	return (
 		<PageWrapper>
-			<Layout>
+			<DragAndDrop
+				widgetsInCanvas={components}
+				accept={[
+					CalculatorWidgets.display,
+					CalculatorWidgets.functions,
+					CalculatorWidgets.keypad,
+					CalculatorWidgets.result,
+				]}
+				isEditMode={isEnable}
+			>
 				<Calculator isEditMode={isEnable} />
-				<div style={{ position: "relative" }}>
-					<Tabs onClick={tabsOnClick} />
-					<Constructor isEditMode={isEnable}>
-						<Calculator components={components} isEditMode={isEnable} />
-					</Constructor>
-				</div>
-			</Layout>
+			</DragAndDrop>
 		</PageWrapper>
 	);
 };

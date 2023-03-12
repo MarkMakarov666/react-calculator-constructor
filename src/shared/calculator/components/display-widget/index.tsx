@@ -4,14 +4,15 @@ import {
 	DisplayWrapper,
 	Result,
 } from "shared/calculator/components/display-widget/styled";
-import { ItemTypes } from "constants/drop";
+import { CalculatorWidgets } from "constants/calculatorTypes";
 
 export interface DisplayWidgetProps {
 	value: number;
 	numbersAfterDot: number;
 	isInteger: boolean;
-	onDoubleClick?: (value: ItemTypes) => void;
-	inContainer?: boolean;
+	onDoubleClick?: (value: CalculatorWidgets) => void;
+	inCanvas?: boolean;
+	isActive?: boolean;
 }
 
 export const DisplayWidget = ({
@@ -19,7 +20,8 @@ export const DisplayWidget = ({
 	numbersAfterDot,
 	isInteger,
 	onDoubleClick,
-	inContainer,
+	inCanvas,
+	isActive,
 }: DisplayWidgetProps) => {
 	const result = isInteger
 		? value
@@ -32,9 +34,10 @@ export const DisplayWidget = ({
 		: value.toString().length;
 	return (
 		<Widget
-			type={ItemTypes.display}
-			isDraggable={!inContainer}
+			type={CalculatorWidgets.display}
+			isDraggable={!inCanvas}
 			onDoubleClick={onDoubleClick}
+			isActive={isActive}
 		>
 			<DisplayWrapper>
 				<Result length={valueLength}>

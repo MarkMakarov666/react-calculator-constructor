@@ -8,18 +8,20 @@ import {
 	Operations,
 	setOperation,
 } from "shared/calculator/redux/calculator.slice";
-import { ItemTypes } from "constants/drop";
+import { CalculatorWidgets } from "constants/calculatorTypes";
 
 export interface FunctionalWidgetProps {
-	onDoubleClick?: (value: ItemTypes) => void;
+	onDoubleClick?: (value: CalculatorWidgets) => void;
 	isEditMode?: boolean;
-	inContainer?: boolean;
+	inCanvas?: boolean;
+	isActive?: boolean;
 }
 
 export const FunctionalWidget = ({
 	onDoubleClick,
 	isEditMode,
-	inContainer,
+	inCanvas,
+	isActive,
 }: FunctionalWidgetProps) => {
 	const operationsName = ["/", "x", "-", "+"];
 	const operationsValue = [
@@ -36,9 +38,10 @@ export const FunctionalWidget = ({
 	};
 	return (
 		<Widget
-			type={ItemTypes.functions}
+			type={CalculatorWidgets.functions}
 			onDoubleClick={onDoubleClick}
-			isDraggable={!inContainer}
+			isDraggable={!inCanvas}
+			isActive={isActive}
 		>
 			<FunctionalWrapper>
 				{operationsName.map((button, index) => (

@@ -6,40 +6,40 @@ import {
 	IconWrapper,
 	TextDescription,
 	WrapperHover,
-} from "shared/constructor/styled";
-import { ItemTypes } from "constants/drop";
+} from "shared/drag-and-drop/components/canvas/styled";
+import { CalculatorWidgets } from "constants/calculatorTypes";
 import { useDrop } from "react-dnd";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { addComponent } from "shared/constructor/redux/constructor.slice";
+import { addComponent } from "shared/drag-and-drop/redux/constructor.slice";
 import { Icon, IconName } from "shared/components/icon";
 
-export interface ConstructorProps {
+export interface CanvasProps {
 	children?: React.ReactNode;
 	isEditMode?: boolean;
+	handleOnDrop?: () => void;
+	componentsInCanvas?: CalculatorWidgets[];
+	accept: CalculatorWidgets[];
 }
 
-export const Constructor = ({ children }: ConstructorProps) => {
-	const dispath = useAppDispatch();
+export const Canvas = ({ children, accept }: CanvasProps) => {
+	const dispatch = useAppDispatch();
 	const { components } = useAppSelector((state) => state.dragAndDrop);
-	const handleOnDrop = (item: ItemTypes) => {
-		dispath(addComponent(item));
+	const handleOnDrop = (item: CalculatorWidgets) => {
+		dispatch(addComponent(item));
 	};
+
 	const [{ isOver, canDrop }, drop] = useDrop(() => ({
-		accept: [
-			ItemTypes.display,
-			ItemTypes.functions,
-			ItemTypes.keypad,
-			ItemTypes.result,
-		],
+		accept: accept,
 		drop: (item, monitor) => {
 			const type = monitor.getItemType();
-			handleOnDrop(type as ItemTypes);
+			handleOnDrop(type as CalculatorWidgets);
 		},
 		collect: (monitor) => ({
 			isOver: monitor.isOver(),
 			canDrop: monitor.canDrop(),
 		}),
 	}));
+
 	const haveComponents = !!components.length;
 
 	return (

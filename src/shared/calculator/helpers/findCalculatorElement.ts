@@ -1,8 +1,8 @@
-import { ItemTypes } from "constants/drop";
+import { CalculatorWidgets } from "constants/calculatorTypes";
 
 export const findCalculatorElement = (
-	element: ItemTypes,
-	array: ItemTypes[]
+	element: CalculatorWidgets,
+	array: CalculatorWidgets[]
 ) => {
 	return array.findIndex((item) => item === element) !== -1;
 };

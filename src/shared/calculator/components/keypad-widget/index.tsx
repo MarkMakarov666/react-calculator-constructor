@@ -14,18 +14,20 @@ import {
 	addValue2,
 	enableKeypadPressed,
 } from "shared/calculator/redux/calculator.slice";
-import { ItemTypes } from "constants/drop";
+import { CalculatorWidgets } from "constants/calculatorTypes";
 
 export interface KeypadWidgetProps {
-	onDoubleClick?: (value: ItemTypes) => void;
+	onDoubleClick?: (value: CalculatorWidgets) => void;
 	isEditMode?: boolean;
-	inContainer?: boolean;
+	inCanvas?: boolean;
+	isActive?: boolean;
 }
 
 export const KeypadWidget = ({
 	onDoubleClick,
 	isEditMode,
-	inContainer,
+	inCanvas,
+	isActive,
 }: KeypadWidgetProps) => {
 	const { isKeypadPressed, isOperationPressed } = useAppSelector(
 		(state) => state.calculator
@@ -55,9 +57,10 @@ export const KeypadWidget = ({
 	const numbers = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 	return (
 		<Widget
-			type={ItemTypes.keypad}
+			type={CalculatorWidgets.keypad}
 			onDoubleClick={onDoubleClick}
-			isDraggable={!inContainer}
+			isDraggable={!inCanvas}
+			isActive={isActive}
 		>
 			<KeypadWrapper>
 				{numbers.map((number) => (
