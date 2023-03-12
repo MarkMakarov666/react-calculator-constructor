@@ -5,8 +5,8 @@ import { FunctionalWidget } from "shared/calculator/components/functional-widget
 import { KeypadWidget } from "shared/calculator/components/keypad-widget";
 import { ResultWidget } from "shared/calculator/components/result-widget";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { ItemTypes } from "constants/drop";
-import { removeComponent } from "shared/constructor/redux/constructor.slice";
+import { CalculatorWidgets } from "constants/calculatorTypes";
+import { removeComponent } from "shared/drag-and-drop/redux/constructor.slice";
 import { setDefault } from "shared/calculator/redux/calculator.slice";
 import { findCalculatorElement } from "shared/calculator/helpers/findCalculatorElement";
 
@@ -17,11 +17,16 @@ export interface ValueObject {
 }
 
 export interface CalculatorProps {
-	components?: ItemTypes[];
+	components?: CalculatorWidgets[];
+	inCanvas?: CalculatorWidgets[];
 	isEditMode?: boolean;
 }
 
-export const Calculator = ({ components, isEditMode }: CalculatorProps) => {
+export const Calculator = ({
+	components,
+	isEditMode,
+	inCanvas,
+}: CalculatorProps) => {
 	const dispatch = useAppDispatch();
 	const {
 		value1,
@@ -52,7 +57,7 @@ export const Calculator = ({ components, isEditMode }: CalculatorProps) => {
 			: copyValue1
 		: copyValue1;
 
-	const doubleClickHandler = (value: ItemTypes) => {
+	const doubleClickHandler = (value: CalculatorWidgets) => {
 		dispatch(removeComponent(value));
 	};
 
@@ -70,15 +75,36 @@ export const Calculator = ({ components, isEditMode }: CalculatorProps) => {
 						value={value.value}
 						numbersAfterDot={value.numbersAfterDot}
 						isInteger={value.isInteger}
+						isActive={
+							inCanvas &&
+							findCalculatorElement(CalculatorWidgets.display, inCanvas)
+						}
 					/>
-					<FunctionalWidget isEditMode={isEditMode} />
-					<KeypadWidget isEditMode={isEditMode} />
-					<ResultWidget />
+					<FunctionalWidget
+						isEditMode={isEditMode}
+						isActive={
+							inCanvas &&
+							findCalculatorElement(CalculatorWidgets.functions, inCanvas)
+						}
+					/>
+					<KeypadWidget
+						isEditMode={isEditMode}
+						isActive={
+							inCanvas &&
+							findCalculatorElement(CalculatorWidgets.keypad, inCanvas)
+						}
+					/>
+					<ResultWidget
+						isActive={
+							inCanvas &&
+							findCalculatorElement(CalculatorWidgets.result, inCanvas)
+						}
+					/>
 				</CalculatorWrapper>
 			)}
 			{components?.map((item) => {
 				switch (item) {
-					case ItemTypes.display:
+					case CalculatorWidgets.display:
 						return (
 							<DisplayWidget
 								value={value.value}
@@ -88,13 +114,13 @@ export const Calculator = ({ components, isEditMode }: CalculatorProps) => {
 								onDoubleClick={
 									isEditMode ? () => doubleClickHandler(item) : undefined
 								}
-								inContainer={findCalculatorElement(
-									ItemTypes.display,
+								inCanvas={findCalculatorElement(
+									CalculatorWidgets.display,
 									components
 								)}
 							/>
 						);
-					case ItemTypes.keypad:
+					case CalculatorWidgets.keypad:
 						return (
 							<KeypadWidget
 								key={"keypad-widget"}
@@ -102,26 +128,26 @@ export const Calculator = ({ components, isEditMode }: CalculatorProps) => {
 									isEditMode ? () => doubleClickHandler(item) : undefined
 								}
 								isEditMode={isEditMode}
-								inContainer={findCalculatorElement(
-									ItemTypes.keypad,
+								inCanvas={findCalculatorElement(
+									CalculatorWidgets.keypad,
 									components
 								)}
 							/>
 						);
-					case ItemTypes.result:
+					case CalculatorWidgets.result:
 						return (
 							<ResultWidget
 								key={"result-widget"}
 								onDoubleClick={
 									isEditMode ? () => doubleClickHandler(item) : undefined
 								}
-								inContainer={findCalculatorElement(
-									ItemTypes.result,
+								inCanvas={findCalculatorElement(
+									CalculatorWidgets.result,
 									components
 								)}
 							/>
 						);
-					case ItemTypes.functions:
+					case CalculatorWidgets.functions:
 						return (
 							<FunctionalWidget
 								key={"functions-widget"}
@@ -129,8 +155,8 @@ export const Calculator = ({ components, isEditMode }: CalculatorProps) => {
 									isEditMode ? () => doubleClickHandler(item) : undefined
 								}
 								isEditMode={isEditMode}
-								inContainer={findCalculatorElement(
-									ItemTypes.functions,
+								inCanvas={findCalculatorElement(
+									CalculatorWidgets.functions,
 									components
 								)}
 							/>

@@ -1,4 +1,4 @@
-export enum ItemTypes {
+export enum CalculatorWidgets {
 	display = "display",
 	functions = "functions",
 	keypad = "keypad",

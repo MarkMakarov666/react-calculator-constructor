@@ -1,13 +1,14 @@
 import React from "react";
 import { WidgetWrapper } from "shared/components/widget/styled";
 import { useDrag } from "react-dnd";
-import { ItemTypes } from "constants/drop";
+import { CalculatorWidgets } from "constants/calculatorTypes";
 
 export interface WidgetProps {
 	children: React.ReactNode;
-	type: ItemTypes;
+	type: CalculatorWidgets;
 	onDoubleClick?: (arg0: any) => void;
 	isDraggable?: boolean;
+	isActive?: boolean;
 }
 
 export const Widget = ({
@@ -15,6 +16,7 @@ export const Widget = ({
 	type,
 	onDoubleClick,
 	isDraggable,
+	isActive,
 }: WidgetProps) => {
 	const [{ isDragging }, drag] = useDrag({
 		item: {
@@ -27,9 +29,10 @@ export const Widget = ({
 	});
 	return (
 		<WidgetWrapper
-			ref={isDraggable ? drag : null}
+			ref={isDraggable && !isActive ? drag : null}
 			isDragging={isDragging}
 			onDoubleClick={onDoubleClick}
+			isActive={isActive}
 		>
 			{children}
 		</WidgetWrapper>
