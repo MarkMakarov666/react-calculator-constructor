@@ -13,6 +13,7 @@ export interface DisplayWidgetProps {
 	onDoubleClick?: (value: CalculatorWidgets) => void;
 	inCanvas?: boolean;
 	isActive?: boolean;
+	isEditMode?: boolean;
 }
 
 export const DisplayWidget = ({
@@ -22,6 +23,7 @@ export const DisplayWidget = ({
 	onDoubleClick,
 	inCanvas,
 	isActive,
+	isEditMode,
 }: DisplayWidgetProps) => {
 	const toFixedNumbers = numbersAfterDot - 1 < 0 ? 0 : numbersAfterDot - 1;
 	const result = isInteger
@@ -39,6 +41,7 @@ export const DisplayWidget = ({
 			isDraggable={!inCanvas}
 			onDoubleClick={onDoubleClick}
 			isActive={isActive}
+			isEditMode={isEditMode}
 		>
 			<DisplayWrapper>
 				<Result length={valueLength}>
