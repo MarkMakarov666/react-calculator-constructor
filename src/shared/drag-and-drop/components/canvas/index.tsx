@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	ConstructorActionText,
 	ConstructorDetails,
@@ -10,8 +10,12 @@ import {
 import { CalculatorWidgets } from "constants/calculatorTypes";
 import { useDrop } from "react-dnd";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { addComponent } from "shared/drag-and-drop/redux/constructor.slice";
+import {
+	addComponent,
+	setComponents,
+} from "shared/drag-and-drop/redux/constructor.slice";
 import { Icon, IconName } from "shared/components/icon";
+import { sortCalculatorWidgets } from "shared/calculator/helpers/sortCalculatorWidgets";
 
 export interface CanvasProps {
 	children?: React.ReactNode;
@@ -27,7 +31,6 @@ export const Canvas = ({ children, accept }: CanvasProps) => {
 	const handleOnDrop = (item: CalculatorWidgets) => {
 		dispatch(addComponent(item));
 	};
-
 	const [{ isOver, canDrop }, drop] = useDrop(() => ({
 		accept: accept,
 		drop: (item, monitor) => {
@@ -41,6 +44,10 @@ export const Canvas = ({ children, accept }: CanvasProps) => {
 	}));
 
 	const haveComponents = !!components.length;
+
+	useEffect(() => {
+		dispatch(setComponents(sortCalculatorWidgets(components)));
+	}, [components.length]);
 
 	return (
 		<ConstructorWrapper

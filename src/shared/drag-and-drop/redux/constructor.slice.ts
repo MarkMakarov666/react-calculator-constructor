@@ -30,10 +30,13 @@ export const constructorSlice = createSlice({
 		toggleEnable: (state, action: PayloadAction<boolean>) => {
 			state.isEnable = action.payload;
 		},
+		setComponents: (state, action: PayloadAction<CalculatorWidgets[]>) => {
+			state.components = action.payload;
+		},
 	},
 });
 
-export const { addComponent, removeComponent, toggleEnable } =
+export const { addComponent, removeComponent, toggleEnable, setComponents } =
 	constructorSlice.actions;
 
 export default constructorSlice.reducer;

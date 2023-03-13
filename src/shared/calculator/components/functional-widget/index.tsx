@@ -20,7 +20,6 @@ export interface FunctionalWidgetProps {
 export const FunctionalWidget = ({
 	onDoubleClick,
 	isEditMode,
-	inCanvas,
 	isActive,
 }: FunctionalWidgetProps) => {
 	const operationsName = ["/", "x", "-", "+"];
@@ -36,12 +35,14 @@ export const FunctionalWidget = ({
 		dispatch(enableOperationPressed());
 		dispatch(setOperation(value));
 	};
+
 	return (
 		<Widget
 			type={CalculatorWidgets.functions}
 			onDoubleClick={onDoubleClick}
-			isDraggable={!inCanvas}
+			isDraggable={!isActive}
 			isActive={isActive}
+			isEditMode={isEditMode}
 		>
 			<FunctionalWrapper>
 				{operationsName.map((button, index) => (

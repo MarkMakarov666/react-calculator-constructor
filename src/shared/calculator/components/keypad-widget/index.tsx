@@ -26,7 +26,6 @@ export interface KeypadWidgetProps {
 export const KeypadWidget = ({
 	onDoubleClick,
 	isEditMode,
-	inCanvas,
 	isActive,
 }: KeypadWidgetProps) => {
 	const { isKeypadPressed, isOperationPressed } = useAppSelector(
@@ -59,8 +58,9 @@ export const KeypadWidget = ({
 		<Widget
 			type={CalculatorWidgets.keypad}
 			onDoubleClick={onDoubleClick}
-			isDraggable={!inCanvas}
+			isDraggable={!isActive}
 			isActive={isActive}
+			isEditMode={isEditMode}
 		>
 			<KeypadWrapper>
 				{numbers.map((number) => (

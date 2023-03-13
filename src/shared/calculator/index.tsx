@@ -75,6 +75,7 @@ export const Calculator = ({
 						value={value.value}
 						numbersAfterDot={value.numbersAfterDot}
 						isInteger={value.isInteger}
+						isEditMode={isEditMode}
 						isActive={
 							inCanvas &&
 							findCalculatorElement(CalculatorWidgets.display, inCanvas)
@@ -95,6 +96,7 @@ export const Calculator = ({
 						}
 					/>
 					<ResultWidget
+						isEditMode={isEditMode}
 						isActive={
 							inCanvas &&
 							findCalculatorElement(CalculatorWidgets.result, inCanvas)
@@ -141,6 +143,7 @@ export const Calculator = ({
 								onDoubleClick={
 									isEditMode ? () => doubleClickHandler(item) : undefined
 								}
+								isEditMode={isEditMode}
 								inCanvas={findCalculatorElement(
 									CalculatorWidgets.result,
 									components

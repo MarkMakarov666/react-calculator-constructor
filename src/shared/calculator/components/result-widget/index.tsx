@@ -11,12 +11,13 @@ export interface ResultWidgetProps {
 	onDoubleClick?: (value: CalculatorWidgets) => void;
 	inCanvas?: boolean;
 	isActive?: boolean;
+	isEditMode?: boolean;
 }
 
 export const ResultWidget = ({
 	onDoubleClick,
-	inCanvas,
 	isActive,
+	isEditMode,
 }: ResultWidgetProps) => {
 	const { operation, displayValue, cacheValue } = useAppSelector(
 		(state) => state.calculator
@@ -30,8 +31,9 @@ export const ResultWidget = ({
 		<Widget
 			type={CalculatorWidgets.result}
 			onDoubleClick={onDoubleClick}
-			isDraggable={!inCanvas}
+			isDraggable={!isActive}
 			isActive={isActive}
+			isEditMode={isEditMode}
 		>
 			<ResultWrapper>
 				<Button onClick={handleOnClick}>=</Button>
