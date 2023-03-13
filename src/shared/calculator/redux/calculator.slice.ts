@@ -19,6 +19,7 @@ export interface ICalculatorSlice {
 	isOperationPressed: boolean;
 	isKeypadPressed: boolean;
 	isHaveResult: boolean;
+	isCacheCleared: boolean;
 }
 
 const initialState: ICalculatorSlice = {
@@ -32,6 +33,7 @@ const initialState: ICalculatorSlice = {
 	isOperationPressed: false,
 	isKeypadPressed: false,
 	isHaveResult: false,
+	isCacheCleared: false,
 };
 
 export const calculatorSlice = createSlice({
@@ -55,14 +57,14 @@ export const calculatorSlice = createSlice({
 		},
 		addValue2: (state, action: PayloadAction<number>) => {
 			if (
-				state.isHaveResult &&
+				!state.isCacheCleared &&
 				state.isOperationPressed &&
 				state.isKeypadPressed
 			) {
 				state.value2 = 0;
 				state.numbersAfterDotValue2 = 0;
 				state.isIntegerValue2 = true;
-				state.isHaveResult = false;
+				state.isCacheCleared = true;
 			}
 
 			state.value2 = addNumber(
@@ -95,6 +97,7 @@ export const calculatorSlice = createSlice({
 			state.isOperationPressed = false;
 			state.isKeypadPressed = false;
 			state.isHaveResult = true;
+			state.isCacheCleared = false;
 		},
 		setDefault: (state) => {
 			state.value1 = 0;
@@ -107,6 +110,7 @@ export const calculatorSlice = createSlice({
 			state.isOperationPressed = false;
 			state.isKeypadPressed = false;
 			state.isHaveResult = false;
+			state.isCacheCleared = false;
 		},
 	},
 });
