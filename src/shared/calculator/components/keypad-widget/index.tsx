@@ -8,10 +8,10 @@ import { Button } from "shared/components/button";
 import { useAppSelector } from "redux/hooks";
 import { useDispatch } from "react-redux";
 import {
-	addDotValue1,
-	addDotValue2,
-	addValue1,
-	addValue2,
+	addDotDisplay,
+	addDotCache,
+	addDisplay,
+	addCache,
 	enableKeypadPressed,
 } from "shared/calculator/redux/calculator.slice";
 import { CalculatorWidgets } from "constants/calculatorTypes";
@@ -39,9 +39,9 @@ export const KeypadWidget = ({
 			if (!isKeypadPressed) {
 				dispatch(enableKeypadPressed());
 			}
-			dispatch(addValue2(value));
+			dispatch(addCache(value));
 		} else {
-			dispatch(addValue1(value));
+			dispatch(addDisplay(value));
 		}
 	};
 	const handleOnClickDot = () => {
@@ -49,9 +49,9 @@ export const KeypadWidget = ({
 			if (!isKeypadPressed) {
 				dispatch(enableKeypadPressed());
 			}
-			dispatch(addDotValue2());
+			dispatch(addDotCache());
 		} else {
-			dispatch(addDotValue1());
+			dispatch(addDotDisplay());
 		}
 	};
 	const numbers = [7, 8, 9, 4, 5, 6, 1, 2, 3];
