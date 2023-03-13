@@ -23,9 +23,10 @@ export const DisplayWidget = ({
 	inCanvas,
 	isActive,
 }: DisplayWidgetProps) => {
+	const toFixedNumbers = numbersAfterDot - 1 < 0 ? 0 : numbersAfterDot - 1;
 	const result = isInteger
 		? value
-		: value.toFixed(numbersAfterDot - 1).replace(".", ",");
+		: value.toFixed(toFixedNumbers).replace(".", ",");
 	const isNotNumber = Number.isNaN(value) || !Number.isFinite(value);
 
 	const notNumberMessage = "Не определено";
