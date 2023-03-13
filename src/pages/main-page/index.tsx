@@ -11,7 +11,7 @@ export const MainPage = () => {
 		<PageWrapper>
 			<DragAndDrop
 				widgetsInCanvas={components}
-				accept={[
+				acceptTypes={[
 					CalculatorWidgets.display,
 					CalculatorWidgets.functions,
 					CalculatorWidgets.keypad,
