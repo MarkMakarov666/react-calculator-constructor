@@ -9,12 +9,12 @@ export enum Operations {
 }
 
 export interface ICalculatorSlice {
-	value1: number;
-	value2: number;
-	isIntegerValue1: boolean;
-	isIntegerValue2: boolean;
-	numbersAfterDotValue1: number;
-	numbersAfterDotValue2: number;
+	displayValue: number;
+	cacheValue: number;
+	isIntegerDisplay: boolean;
+	isIntegerCache: boolean;
+	numbersAfterDotDisplay: number;
+	numbersAfterDotCache: number;
 	operation: Operations;
 	isOperationPressed: boolean;
 	isKeypadPressed: boolean;
@@ -23,12 +23,12 @@ export interface ICalculatorSlice {
 }
 
 const initialState: ICalculatorSlice = {
-	value1: 0,
-	value2: 0,
-	isIntegerValue1: true,
-	isIntegerValue2: true,
-	numbersAfterDotValue1: 1,
-	numbersAfterDotValue2: 1,
+	displayValue: 0,
+	cacheValue: 0,
+	isIntegerDisplay: true,
+	isIntegerCache: true,
+	numbersAfterDotDisplay: 1,
+	numbersAfterDotCache: 1,
 	operation: Operations.add,
 	isOperationPressed: false,
 	isKeypadPressed: false,
@@ -40,52 +40,52 @@ export const calculatorSlice = createSlice({
 	name: "calculator",
 	initialState,
 	reducers: {
-		addValue1: (state, action: PayloadAction<number>) => {
+		addDisplay: (state, action: PayloadAction<number>) => {
 			if (state.isHaveResult && !state.isOperationPressed) {
-				state.value1 = 0;
+				state.displayValue = 0;
 				state.isHaveResult = false;
 			}
-			state.value1 = addNumber(
-				state.value1,
+			state.displayValue = addNumber(
+				state.displayValue,
 				action.payload,
-				state.isIntegerValue1,
-				state.numbersAfterDotValue1
+				state.isIntegerDisplay,
+				state.numbersAfterDotDisplay
 			);
-			if (!state.isIntegerValue1) {
-				if (state.numbersAfterDotValue1 < 100) {
-					state.numbersAfterDotValue1 += 1;
+			if (!state.isIntegerDisplay) {
+				if (state.numbersAfterDotDisplay < 100) {
+					state.numbersAfterDotDisplay += 1;
 				}
 			}
 		},
-		addValue2: (state, action: PayloadAction<number>) => {
+		addCache: (state, action: PayloadAction<number>) => {
 			if (
 				!state.isCacheCleared &&
 				state.isOperationPressed &&
 				state.isKeypadPressed
 			) {
-				state.value2 = 0;
-				state.numbersAfterDotValue2 = 0;
-				state.isIntegerValue2 = true;
+				state.cacheValue = 0;
+				state.numbersAfterDotCache = 0;
+				state.isIntegerCache = true;
 				state.isCacheCleared = true;
 			}
 
-			state.value2 = addNumber(
-				state.value2,
+			state.cacheValue = addNumber(
+				state.cacheValue,
 				action.payload,
-				state.isIntegerValue2,
-				state.numbersAfterDotValue2
+				state.isIntegerCache,
+				state.numbersAfterDotCache
 			);
-			if (!state.isIntegerValue2) {
-				if (state.numbersAfterDotValue2 < 100) {
-					state.numbersAfterDotValue2 += 1;
+			if (!state.isIntegerCache) {
+				if (state.numbersAfterDotCache < 100) {
+					state.numbersAfterDotCache += 1;
 				}
 			}
 		},
-		addDotValue1: (state) => {
-			state.isIntegerValue1 = false;
+		addDotDisplay: (state) => {
+			state.isIntegerDisplay = false;
 		},
-		addDotValue2: (state) => {
-			state.isIntegerValue2 = false;
+		addDotCache: (state) => {
+			state.isIntegerCache = false;
 		},
 		setOperation: (state, action: PayloadAction<Operations>) => {
 			state.operation = action.payload;
@@ -97,19 +97,19 @@ export const calculatorSlice = createSlice({
 			state.isOperationPressed = true;
 		},
 		findResult: (state, action: PayloadAction<number>) => {
-			state.value1 = action.payload;
+			state.displayValue = action.payload;
 			state.isOperationPressed = false;
 			state.isKeypadPressed = false;
 			state.isHaveResult = true;
 			state.isCacheCleared = false;
 		},
 		setDefault: (state) => {
-			state.value1 = 0;
-			state.value2 = 0;
-			state.isIntegerValue1 = true;
-			state.isIntegerValue2 = true;
-			state.numbersAfterDotValue1 = 1;
-			state.numbersAfterDotValue2 = 1;
+			state.displayValue = 0;
+			state.cacheValue = 0;
+			state.isIntegerDisplay = true;
+			state.isIntegerCache = true;
+			state.numbersAfterDotDisplay = 1;
+			state.numbersAfterDotCache = 1;
 			state.operation = Operations.add;
 			state.isOperationPressed = false;
 			state.isKeypadPressed = false;
@@ -123,10 +123,10 @@ export const {
 	setOperation,
 	enableKeypadPressed,
 	enableOperationPressed,
-	addDotValue2,
-	addValue2,
-	addValue1,
-	addDotValue1,
+	addDotCache,
+	addCache,
+	addDisplay,
+	addDotDisplay,
 	findResult,
 	setDefault,
 } = calculatorSlice.actions;

@@ -29,33 +29,33 @@ export const Calculator = ({
 }: CalculatorProps) => {
 	const dispatch = useAppDispatch();
 	const {
-		value1,
-		value2,
+		displayValue,
+		cacheValue,
 		isOperationPressed,
 		isKeypadPressed,
-		isIntegerValue1,
-		isIntegerValue2,
-		numbersAfterDotValue1,
-		numbersAfterDotValue2,
+		isIntegerDisplay,
+		isIntegerCache,
+		numbersAfterDotDisplay,
+		numbersAfterDotCache,
 	} = useAppSelector((state) => state.calculator);
 
-	const copyValue1: ValueObject = {
-		value: value1,
-		isInteger: isIntegerValue1,
-		numbersAfterDot: numbersAfterDotValue1,
+	const copyDisplay: ValueObject = {
+		value: displayValue,
+		isInteger: isIntegerDisplay,
+		numbersAfterDot: numbersAfterDotDisplay,
 	};
 
-	const copyValue2: ValueObject = {
-		value: value2,
-		isInteger: isIntegerValue2,
-		numbersAfterDot: numbersAfterDotValue2,
+	const copyCache: ValueObject = {
+		value: cacheValue,
+		isInteger: isIntegerCache,
+		numbersAfterDot: numbersAfterDotCache,
 	};
 
 	const value = isOperationPressed
 		? isKeypadPressed
-			? copyValue2
-			: copyValue1
-		: copyValue1;
+			? copyCache
+			: copyDisplay
+		: copyDisplay;
 
 	const doubleClickHandler = (value: CalculatorWidgets) => {
 		dispatch(removeComponent(value));

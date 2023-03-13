@@ -18,12 +18,12 @@ export const ResultWidget = ({
 	inCanvas,
 	isActive,
 }: ResultWidgetProps) => {
-	const { operation, value1, value2 } = useAppSelector(
+	const { operation, displayValue, cacheValue } = useAppSelector(
 		(state) => state.calculator
 	);
 	const dispatch = useAppDispatch();
 	const handleOnClick = () => {
-		dispatch(findResult(count(value1, value2, operation)));
+		dispatch(findResult(count(displayValue, cacheValue, operation)));
 	};
 
 	return (
